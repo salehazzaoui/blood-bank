@@ -16,7 +16,7 @@ class HomeController extends Controller
             ->whereNotNull('blood_type')
             ->orderby('created_at', 'desc')
             ->paginate(15);
-            
+        
         return view('public.home', [
             'sliders' => $sliders,
             'wilayas' => $wilayas,

@@ -18,6 +18,19 @@ class ChatController extends Controller
     public function index($id)
     {
         $donor = User::findOrFail($id);
+
+        switch($donor->contact_time){
+            case 'From 8am to 3pm':
+                if(time() >= strtotime("08:00:00") && time() <= strtotime("18:00:00")){
+                    return back()->with('error', 'You are not able to contact him at this time');   
+                }
+                break;
+            case 'From 3pm to 11pm':
+                if(time() >= strtotime("15:00:00") && time() <= strtotime("23:00:00")){
+                    return back()->with('error', 'You are not able to contact him at this time');    
+                }
+                break;
+        }
         return view('public.chat', [
             'donor' => $donor
         ]);
